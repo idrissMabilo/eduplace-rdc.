@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlace | Agence de Formation Professionnelle</title>
+    <link rel="icon" type="image/jpg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="Logoeduplace.jpg" alt="Logo EduPlace">
+            </div>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#inscription">Inscription</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>EDUPLACE SARL</h1>
+            <p>Former, perfectionner et valoriser le capital humain pour accroître la performance globale des organisations.</p>
+            <a href="#services" class="btn">Découvrir nos formations</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Nos Domaines d'Expertise</h2>
+        <div class="expertise-grid">
+            <div class="slider-container">
+                <button class="prev" onclick="prevImage()">&#10094;</button>
+                <img id="slider-img" src="image1.jpeg" alt="Formation EduPlace">
+                <button class="next" onclick="nextImage()">&#10095;</button>
+            </div>
+            
+            <div class="expertise-text">
+                <div class="item reveal">
+                    <h3><i class="fas fa-user-graduate"></i> Soutien scolaire personnalisé</h3>
+                    <p>Un accompagnement adapté à tous les niveaux pour garantir la réussite des élèves.</p>
+                </div>
+                <div class="item reveal">
+                    <h3><i class="fas fa-language"></i> Cours de langues sur-mesure</h3>
+                    <p>Des programmes adaptés aux objectifs linguistiques des entreprises et particuliers.</p>
+                </div>
+                <div class="item reveal">
+                    <h3><i class="fas fa-laptop-code"></i> Formations en informatique</h3>
+                    <p>Renforcement des compétences techniques et maîtrise des outils numériques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galerie">
+        <h2 class="section-title">Notre Galerie Photos</h2>
+        <div class="galerie-grid">
+            <div class="galerie-item"><img src="image1.jpeg" alt="Galerie 1"></div>
+            <div class="galerie-item"><img src="image2.jpeg" alt="Galerie 2"></div>
+            <div class="galerie-item"><img src="image3.jpeg" alt="Galerie 3"></div>
+            <div class="galerie-item"><img src="image4.jpeg" alt="Galerie 4"></div>
+            <div class="galerie-item"><img src="image5.jpeg" alt="Galerie 5"></div>
+            <div class="galerie-item"><img src="image6.jpeg" alt="Galerie 6"></div>
+        </div>
+    </section>
+
+    <section id="inscription">
+        <div class="inscription-container">
+            <h2>Inscription en Ligne</h2>
+            <p>Rejoignez nos programmes de formation dès aujourd'hui.</p>
+            <form class="inscription-form" id="regForm">
+                <div class="form-row">
+                    <input type="text" placeholder="Nom Complet" required>
+                    <input type="email" placeholder="Adresse Email" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" placeholder="Téléphone (+243...)" required>
+                    <select required>
+                        <option value="" disabled selected>Choisir une formation</option>
+                        <option value="technique">Renforcement Technique</option>
+                        <option value="langue">Compétences Linguistiques</option>
+                        <option value="informatique">Informatique Pratique</option>
+                        <option value="scolaire">Soutien Scolaire</option>
+                    </select>
+                </div>
+                <textarea placeholder="Décrivez vos besoins ou vos objectifs..." rows="4"></textarea>
+                <button type="submit" class="btn">Soumettre ma candidature</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-card">
+            <h2>Contactez EDUPLACE SARL</h2>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Siège :</strong> Lubumbashi, Commune de Lubumbashi</p>
+                <p><i class="fas fa-phone"></i> <strong>Tél :</strong> +243 97 24 06 221</p>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/243972406221" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+
+    <footer>
+        <p>&copy; 2026 EDUPLACE SARL - Lubumbashi, RDC. Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

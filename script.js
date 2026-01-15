@@ -1,53 +1,79 @@
-// CONFIGURATION DES IMAGES (.jpeg selon vos fichiers)
-const images = [
-    'image1.jpeg', 'image2.jpeg', 'image3.jpeg', 
-    'image4.jpeg', 'image5.jpeg', 'image6.jpeg'
+// Configuration de la galerie
+const media = [
+    {type:'img', src:'galerie/image1.jpeg'}, {type:'img', src:'galerie/image2.jpeg'},
+    {type:'img', src:'galerie/image3.jpeg'}, {type:'img', src:'galerie/image4.jpeg'},
+    {type:'img', src:'galerie/image5.jpeg'}, {type:'img', src:'galerie/image6.jpeg'},
+    {type:'img', src:'galerie/image7.jpeg'}, {type:'img', src:'galerie/image8.jpeg'},
+    {type:'img', src:'galerie/image9.jpeg'}, {type:'img', src:'galerie/image10.jpeg'},
+    {type:'img', src:'galerie/image11.jpeg'}, {type:'img', src:'galerie/image12.jpeg'},
+    {type:'video', src:'galerie/video1.mp4'}, {type:'video', src:'galerie/video2.mp4'},
+    {type:'video', src:'galerie/video3.mp4'}, {type:'video', src:'galerie/video4.mp4'}
 ];
 
-let currentIndex = 0;
-const sliderImg = document.getElementById('slider-img');
+let idx = 0;
 
-// FONCTION SLIDER
-function showImage(index) {
-    if (!sliderImg) return;
-    sliderImg.style.opacity = 0;
-    setTimeout(() => {
-        currentIndex = index;
-        if (currentIndex >= images.length) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = images.length - 1;
-        sliderImg.src = images[currentIndex];
-        sliderImg.style.opacity = 1;
-    }, 400);
+function openLightbox(i) {
+    idx = i;
+    showMedia();
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
-function nextImage() { showImage(currentIndex + 1); }
-function prevImage() { showImage(currentIndex - 1); }
+function showMedia() {
+    const div = document.getElementById('lightbox-content');
+    const item = media[idx];
+    div.innerHTML = item.type === 'img' ? 
+        `<img src="${item.src}">` : `<video src="${item.src}" controls autoplay></video>`;
+}
 
-// DEFILEMENT AUTO
-setInterval(nextImage, 5000);
+function changeMedia(n) {
+    idx = (idx + n + media.length) % media.length;
+    showMedia();
+}
 
-// ANIMATIONS AU SCROLL
-function reveal() {
-    let reveals = document.querySelectorAll(".reveal");
-    for (let i = 0; i < reveals.length; i++) {
-        let windowHeight = window.innerHeight;
-        let elementTop = reveals[i].getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-            reveals[i].classList.add("active");
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.getElementById('lightbox-content').innerHTML = '';
+    document.body.style.overflow = 'auto';
+}
+
+// Gestion de l'inscription via Web3Forms
+const form = document.getElementById('eduForm');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+    result.innerHTML = "Envoi en cours...";
+    result.style.color = "orange";
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: json
+    })
+    .then(async (response) => {
+        let res = await response.json();
+        if (response.status == 200) {
+            result.innerHTML = "Merci ! Votre inscription est bien reçue.";
+            result.style.color = "green";
+            form.reset();
+        } else {
+            result.innerHTML = res.message;
+            result.style.color = "red";
         }
-    }
-}
-window.addEventListener("scroll", reveal);
-
-// GESTION FORMULAIRE INSCRIPTION
-const regForm = document.getElementById('regForm');
-if(regForm) {
-    regForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Succès ! Votre demande d'inscription a été envoyée à EDUPLACE SARL. Nous vous reviendrons très bientôt.");
-        this.reset();
+    })
+    .catch(error => {
+        result.innerHTML = "Une erreur est survenue !";
+        result.style.color = "red";
     });
-}
+});
 
-// Lancer au démarrage
-reveal();
+// Clavier
+document.addEventListener('keydown', (e) => {
+    if(e.key === "Escape") closeLightbox();
+    if(e.key === "ArrowRight") changeMedia(1);
+    if(e.key === "ArrowLeft") changeMedia(-1);
+});
